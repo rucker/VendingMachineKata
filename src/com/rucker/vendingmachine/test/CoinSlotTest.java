@@ -12,9 +12,8 @@ public class CoinSlotTest {
 	@Test
 	public void whenValidCoinsAreInsertedTheyAreAccepted() {
 		CoinSlot coinSlot = new CoinSlot();
-		assertEquals(Coin.NICKEL, coinSlot.receiveCoin(5.00, 21.21, 1.95));
-		assertEquals(Coin.DIME, coinSlot.receiveCoin(2.268, 17.91, 1.35));
-		assertEquals(Coin.QUARTER, coinSlot.receiveCoin(5.670, 24.26, 1.75));
+		assertEquals(Coin.NICKEL, coinSlot.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness));
+		assertEquals(Coin.DIME, coinSlot.receiveCoin(Coin.DIME.weight, Coin.DIME.diameter, Coin.DIME.thickness));
+		assertEquals(Coin.QUARTER, coinSlot.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness));
 	}
-
 }
