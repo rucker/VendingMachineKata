@@ -16,4 +16,12 @@ public class CoinSlotTest {
 		assertEquals(Coin.DIME, coinSlot.receiveCoin(Coin.DIME.weight, Coin.DIME.diameter, Coin.DIME.thickness));
 		assertEquals(Coin.QUARTER, coinSlot.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness));
 	}
+	
+	@Test
+	public void whenInvalidCoinsAreInsertedTheyAreRejected() {
+		CoinSlot coinSlot = new CoinSlot();
+		assertEquals(Coin.METAL_SLUG, coinSlot.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.DIME.thickness));
+		assertEquals(Coin.METAL_SLUG, coinSlot.receiveCoin(Coin.DIME.weight, Coin.NICKEL.diameter, Coin.DIME.thickness));
+		assertEquals(Coin.METAL_SLUG, coinSlot.receiveCoin(Coin.NICKEL.weight, Coin.QUARTER.diameter, Coin.NICKEL.thickness));
+	}
 }
