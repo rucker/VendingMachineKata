@@ -14,10 +14,13 @@ public enum Coin {
 	public final double diameter;
 	//Measured in millimeters.
 	public final double thickness;
+	//Monetary value
+	public final BigDecimal value;
 
 	Coin(double weight, double diameter, double thickness, BigDecimal value) {
 		this.weight = weight;
 		this.diameter = diameter;
 		this.thickness = thickness;
+		this.value = value;
 	}
 }
