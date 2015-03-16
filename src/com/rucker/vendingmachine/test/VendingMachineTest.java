@@ -28,7 +28,16 @@ public class VendingMachineTest {
 
 	@Test
 	public void whenNoCoinsHaveBeenInsertedTotalMoneyReceivedIsZero() {
-		vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.diameter);
 		assertEquals(new BigDecimal(0).setScale(2, RoundingMode.HALF_UP), vendingMachine.getTotalMoneyReceived());
+	}
+	
+	@Test
+	public void whenValidCoinsAreReceivedTheTotalMoneyInsertedIsUpdated() {
+		vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness);
+		assertEquals(Coin.NICKEL.value, vendingMachine.getTotalMoneyReceived());
+		vendingMachine.receiveCoin(Coin.DIME.weight, Coin.DIME.diameter, Coin.DIME.thickness);
+		assertEquals(new BigDecimal(.15).setScale(2, RoundingMode.HALF_UP), vendingMachine.getTotalMoneyReceived());
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		assertEquals(new BigDecimal(.40).setScale(2, RoundingMode.HALF_UP), vendingMachine.getTotalMoneyReceived());
 	}
 }

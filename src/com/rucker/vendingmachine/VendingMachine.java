@@ -3,12 +3,14 @@ package com.rucker.vendingmachine;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.rucker.vendingmachine.components.CoinSlot;
 import com.rucker.vendingmachine.components.Display;
 
 public class VendingMachine {
 	
 	private Display display = new Display();
 	private BigDecimal totalMoneyReceived;
+	private CoinSlot coinSlot = new CoinSlot();
 
 	public VendingMachine() {
 		setTotalMoneyReceivedToZero();
@@ -22,8 +24,7 @@ public class VendingMachine {
 	}
 
 	public void receiveCoin(double weight, double diameter, double thickness) {
-		// TODO Auto-generated method stub
-		
+		totalMoneyReceived = totalMoneyReceived.add(coinSlot.receiveCoin(weight, diameter, thickness).value);
 	}
 
 	public BigDecimal getTotalMoneyReceived() {
