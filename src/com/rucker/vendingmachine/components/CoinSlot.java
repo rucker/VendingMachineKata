@@ -6,7 +6,7 @@ public class CoinSlot {
 
 	/**
 	 * 
-	 * @return
+	 * @return the coin recognized according to its weight/diameter/thickness
 	 */
 	public Coin receiveCoin(double weight, double diameter, double thickness) {
 		if (weight == Coin.NICKEL.weight &&
