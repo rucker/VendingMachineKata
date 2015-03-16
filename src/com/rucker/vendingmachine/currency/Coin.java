@@ -1,6 +1,7 @@
 package com.rucker.vendingmachine.currency;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public enum Coin {
 	NICKEL(5.0, 21.21, 1.95, new BigDecimal(.05)),
@@ -17,10 +18,10 @@ public enum Coin {
 	//Monetary value
 	public final BigDecimal value;
 
-	Coin(double weight, double diameter, double thickness, BigDecimal value) {
+	private Coin(double weight, double diameter, double thickness, BigDecimal value) {
 		this.weight = weight;
 		this.diameter = diameter;
 		this.thickness = thickness;
-		this.value = value;
+		this.value = value.setScale(2, RoundingMode.HALF_UP);
 	}
 }
