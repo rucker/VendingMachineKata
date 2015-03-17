@@ -2,15 +2,25 @@ package com.rucker.vendingmachine;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
 
 import com.rucker.vendingmachine.components.CoinSlot;
 import com.rucker.vendingmachine.components.Display;
+import com.rucker.vendingmachine.components.KeyCodes;
+import com.rucker.vendingmachine.product.Product;
 
 public class VendingMachine {
 	
 	private Display display = new Display();
 	private BigDecimal totalMoneyReceived;
 	private CoinSlot coinSlot = new CoinSlot();
+	public static HashMap<KeyCodes, Product> productCodes;
+	static {
+		productCodes = new HashMap<KeyCodes, Product>();
+		productCodes.put(KeyCodes.KEY_ONE, Product.COLA);
+		productCodes.put(KeyCodes.KEY_TWO, Product.CHIPS);
+		productCodes.put(KeyCodes.KEY_THREE, Product.CANDY);
+	}
 
 	public VendingMachine() {
 		setTotalMoneyReceivedToZero();
@@ -30,5 +40,12 @@ public class VendingMachine {
 
 	public BigDecimal getTotalMoneyReceived() {
 		return totalMoneyReceived;
+	}
+	public Product selectKeyCode(KeyCodes selectedCode) {
+		Product product = productCodes.get(selectedCode);
+		if (product == null) {
+			product = Product.NONE;
+		}
+		return product;
 	}
 }
