@@ -25,6 +25,7 @@ public class VendingMachine {
 
 	public void receiveCoin(double weight, double diameter, double thickness) {
 		totalMoneyReceived = totalMoneyReceived.add(coinSlot.receiveCoin(weight, diameter, thickness).value);
+		display.setDisplayTotal(totalMoneyReceived.toString());
 	}
 
 	public BigDecimal getTotalMoneyReceived() {

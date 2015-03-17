@@ -40,4 +40,14 @@ public class VendingMachineTest {
 		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
 		assertEquals(new BigDecimal(.40).setScale(2, RoundingMode.HALF_UP), vendingMachine.getTotalMoneyReceived());
 	}
+	
+	@Test
+	public void whenCoinsAreReceivedTheDisplayShowsTheCurrentTotalMoneyReceived() {
+		vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness);
+		assertEquals("$0.05", vendingMachine.getDisplayMessage());
+		vendingMachine.receiveCoin(Coin.DIME.weight, Coin.DIME.diameter, Coin.DIME.thickness);
+		assertEquals("$0.15", vendingMachine.getDisplayMessage());
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		assertEquals("$0.40", vendingMachine.getDisplayMessage());
+	}
 }
