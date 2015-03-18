@@ -14,7 +14,7 @@ public class VendingMachine {
 	private Display display = new Display();
 	private BigDecimal totalMoneyReceived;
 	private CoinSlot coinSlot = new CoinSlot();
-	public static HashMap<KeyCodes, Product> productCodes;
+	private static HashMap<KeyCodes, Product> productCodes;
 	private static HashMap<Product, Integer> inventory;
 	static {
 		productCodes = new HashMap<KeyCodes, Product>();
