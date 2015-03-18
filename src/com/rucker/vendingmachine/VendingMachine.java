@@ -75,6 +75,7 @@ public class VendingMachine {
 
 	public void dispenseProduct(Product product) {
 		inventory.put(product, inventory.get(product) - 1);
+		setTotalMoneyReceivedToZero();
 		display.displayThankYou();
 	}
 }

@@ -108,4 +108,12 @@ public class VendingMachineTest {
 		vendingMachine.getDisplayMessage();
 		assertEquals(Display.INSERT_COIN, vendingMachine.getDisplayMessage());
 	}
+	
+	@Test
+	public void whenProductIsDispensedTotalMoneyReceivedIsSetToZero() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.dispenseProduct(Product.CHIPS);
+		assertEquals(new BigDecimal(0).setScale(2), vendingMachine.getTotalMoneyReceived());
+	}
 }
