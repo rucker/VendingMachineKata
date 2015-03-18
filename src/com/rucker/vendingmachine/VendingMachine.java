@@ -21,16 +21,15 @@ public class VendingMachine {
 		productCodes.put(KeyCodes.KEY_ONE, Product.COLA);
 		productCodes.put(KeyCodes.KEY_TWO, Product.CHIPS);
 		productCodes.put(KeyCodes.KEY_THREE, Product.CANDY);
-		
+	}
+
+	public VendingMachine() {
+		setTotalMoneyReceivedToZero();
 		inventory = new HashMap<Product, Integer> ();
 		inventory.put(Product.CANDY, 5);
 		inventory.put(Product.CHIPS, 5);
 		inventory.put(Product.COLA, 5);
 		inventory.put(Product.NONE, 0);
-	}
-
-	public VendingMachine() {
-		setTotalMoneyReceivedToZero();
 	}
 	
 	private void setTotalMoneyReceivedToZero() {
@@ -64,5 +63,9 @@ public class VendingMachine {
 
 	public int getQuantityAvailable(Product product) {
 		return inventory.get(product);
+	}
+
+	public void dispenseProduct(Product product) {
+		inventory.put(product, inventory.get(product) - 1);
 	}
 }
