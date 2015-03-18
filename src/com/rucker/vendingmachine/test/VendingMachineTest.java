@@ -71,4 +71,12 @@ public class VendingMachineTest {
 		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_ZERO));
 		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_INVALID));
 	}
+	
+	@Test
+	public void whenAProductIsChosenTheVendingMachineVerifiesWhetherEnoughMoneyHasBeenReceived() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		assertEquals(true, vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CHIPS));
+		assertEquals(false, vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY));
+	}
 }

@@ -50,4 +50,8 @@ public class VendingMachine {
 		}
 		return product;
 	}
+	
+	public boolean hasEnoughMoneyBeenReceivedForProduct(Product product) {
+		return totalMoneyReceived.compareTo(product.price) >= 0;
+	}
 }
