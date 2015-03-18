@@ -101,4 +101,11 @@ public class VendingMachineTest {
 		vendingMachine.dispenseProduct(Product.CHIPS);
 		assertEquals(Display.THANK_YOU, vendingMachine.getDisplayMessage());
 	}
+	
+	@Test
+	public void whenAProductIsDispensedAndDisplayCheckedASecondTimeItReadsInsertCoin() {
+		vendingMachine.dispenseProduct(Product.CHIPS);
+		vendingMachine.getDisplayMessage();
+		assertEquals(Display.INSERT_COIN, vendingMachine.getDisplayMessage());
+	}
 }

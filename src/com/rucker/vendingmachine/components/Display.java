@@ -9,7 +9,7 @@ public class Display {
 	private String message;
 	
 	public Display() {
-		message = INSERT_COIN;
+		displayInsertCoin();
 	}
 	
 	public String getMessage() {
@@ -22,5 +22,9 @@ public class Display {
 	
 	public void displayThankYou() {
 		message = THANK_YOU;
+	}
+	
+	public void displayInsertCoin() {
+		message = INSERT_COIN;
 	}
 }

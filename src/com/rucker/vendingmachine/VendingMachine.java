@@ -22,6 +22,8 @@ public class VendingMachine {
 		productCodes.put(KeyCodes.KEY_TWO, Product.CHIPS);
 		productCodes.put(KeyCodes.KEY_THREE, Product.CANDY);
 	}
+	
+	private boolean thankYouDisplayed = false;
 
 	public VendingMachine() {
 		setTotalMoneyReceivedToZero();
@@ -37,6 +39,12 @@ public class VendingMachine {
 	}
 	
 	public String getDisplayMessage() {
+		if (Display.THANK_YOU.equals(display.getMessage()) && !thankYouDisplayed) {
+			thankYouDisplayed = true;
+		}
+		else if (Display.THANK_YOU.equals(display.getMessage()) && thankYouDisplayed) {
+			display.displayInsertCoin();
+		}
 		return display.getMessage();
 	}
 
