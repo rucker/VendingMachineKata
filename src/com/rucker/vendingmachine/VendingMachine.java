@@ -25,6 +25,7 @@ public class VendingMachine {
 	public VendingMachine() {
 		setTotalMoneyReceivedToZero();
 	}
+	
 	private void setTotalMoneyReceivedToZero() {
 		totalMoneyReceived = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
 	}
@@ -41,6 +42,7 @@ public class VendingMachine {
 	public BigDecimal getTotalMoneyReceived() {
 		return totalMoneyReceived;
 	}
+	
 	public Product selectProductByKeyCode(KeyCodes selectedCode) {
 		Product product = productCodes.get(selectedCode);
 		if (product == null) {
