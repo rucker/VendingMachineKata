@@ -41,7 +41,7 @@ public class VendingMachine {
 	public BigDecimal getTotalMoneyReceived() {
 		return totalMoneyReceived;
 	}
-	public Product selectKeyCode(KeyCodes selectedCode) {
+	public Product selectProductByKeyCode(KeyCodes selectedCode) {
 		Product product = productCodes.get(selectedCode);
 		if (product == null) {
 			product = Product.NONE;

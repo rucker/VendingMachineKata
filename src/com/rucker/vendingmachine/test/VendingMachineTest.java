@@ -55,20 +55,20 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenAKeyCodeBelongingToAProductIsSelectedTheVendingMachineReturnsThatProduct() {
-		assertEquals(Product.COLA, vendingMachine.selectKeyCode(KeyCodes.KEY_ONE));
-		assertEquals(Product.CHIPS, vendingMachine.selectKeyCode(KeyCodes.KEY_TWO));
-		assertEquals(Product.CANDY, vendingMachine.selectKeyCode(KeyCodes.KEY_THREE));
+		assertEquals(Product.COLA, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_ONE));
+		assertEquals(Product.CHIPS, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_TWO));
+		assertEquals(Product.CANDY, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_THREE));
 	}
 	
 	@Test
 	public void whenAKeyCodeBelongingToNoProductIsSelectedTheVendingMachineReturnsNoneProduct() {
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_FOUR));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_FIVE));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_SIX));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_SEVEN));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_EIGHT));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_NINE));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_ZERO));
-		assertEquals(Product.NONE, vendingMachine.selectKeyCode(KeyCodes.KEY_INVALID));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_FOUR));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_FIVE));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_SIX));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_SEVEN));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_EIGHT));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_NINE));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_ZERO));
+		assertEquals(Product.NONE, vendingMachine.selectProductByKeyCode(KeyCodes.KEY_INVALID));
 	}
 }
