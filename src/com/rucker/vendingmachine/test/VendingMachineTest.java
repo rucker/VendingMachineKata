@@ -79,4 +79,12 @@ public class VendingMachineTest {
 		assertEquals(true, vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CHIPS));
 		assertEquals(false, vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY));
 	}
+	
+	@Test
+	public void productQuantiesAreInitializedAsExpected() {
+		assertEquals(5, vendingMachine.getQuantityAvailable(Product.CANDY));
+		assertEquals(5, vendingMachine.getQuantityAvailable(Product.CHIPS));
+		assertEquals(5, vendingMachine.getQuantityAvailable(Product.COLA));
+		assertEquals(0, vendingMachine.getQuantityAvailable(Product.NONE));
+	}
 }

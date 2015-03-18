@@ -15,11 +15,18 @@ public class VendingMachine {
 	private BigDecimal totalMoneyReceived;
 	private CoinSlot coinSlot = new CoinSlot();
 	public static HashMap<KeyCodes, Product> productCodes;
+	private static HashMap<Product, Integer> inventory;
 	static {
 		productCodes = new HashMap<KeyCodes, Product>();
 		productCodes.put(KeyCodes.KEY_ONE, Product.COLA);
 		productCodes.put(KeyCodes.KEY_TWO, Product.CHIPS);
 		productCodes.put(KeyCodes.KEY_THREE, Product.CANDY);
+		
+		inventory = new HashMap<Product, Integer> ();
+		inventory.put(Product.CANDY, 5);
+		inventory.put(Product.CHIPS, 5);
+		inventory.put(Product.COLA, 5);
+		inventory.put(Product.NONE, 0);
 	}
 
 	public VendingMachine() {
@@ -53,5 +60,9 @@ public class VendingMachine {
 	
 	public boolean hasEnoughMoneyBeenReceivedForProduct(Product product) {
 		return totalMoneyReceived.compareTo(product.price) >= 0;
+	}
+
+	public Object getQuantityAvailable(Product candy) {
+		return inventory.get(candy);
 	}
 }
