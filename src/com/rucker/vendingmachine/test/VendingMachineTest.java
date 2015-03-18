@@ -87,4 +87,12 @@ public class VendingMachineTest {
 		assertEquals(5, vendingMachine.getQuantityAvailable(Product.COLA));
 		assertEquals(0, vendingMachine.getQuantityAvailable(Product.NONE));
 	}
+	
+	@Test
+	public void whenAProductIsDispensedItIsRemovedFromTheInventoryCount() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+//		vendingMachine.dispenseProduct(Product.CHIPS);
+		assertEquals(4, vendingMachine.getQuantityAvailable(Product.CHIPS));
+	}
 }

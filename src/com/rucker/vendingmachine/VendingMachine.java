@@ -62,7 +62,7 @@ public class VendingMachine {
 		return totalMoneyReceived.compareTo(product.price) >= 0;
 	}
 
-	public Integer getQuantityAvailable(Product product) {
+	public int getQuantityAvailable(Product product) {
 		return inventory.get(product);
 	}
 }
