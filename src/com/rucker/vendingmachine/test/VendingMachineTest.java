@@ -95,4 +95,10 @@ public class VendingMachineTest {
 		vendingMachine.dispenseProduct(Product.CHIPS);
 		assertEquals(4, vendingMachine.getQuantityAvailable(Product.CHIPS));
 	}
+	
+	@Test
+	public void whenAProductisDispensedDisplayReadsThankYou() {
+		vendingMachine.dispenseProduct(Product.CHIPS);
+		assertEquals(Display.THANK_YOU, vendingMachine.getDisplayMessage());
+	}
 }
