@@ -66,7 +66,11 @@ public class VendingMachine {
 	}
 	
 	public boolean hasEnoughMoneyBeenReceivedForProduct(Product product) {
-		return totalMoneyReceived.compareTo(product.price) >= 0;
+		boolean enoughMoneyReceived = totalMoneyReceived.compareTo(product.price) >= 0;
+		if (!enoughMoneyReceived) {
+			display.displayPriceOfProduct(product);
+		}
+		return enoughMoneyReceived;
 	}
 
 	public int getQuantityAvailable(Product product) {

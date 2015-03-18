@@ -116,4 +116,12 @@ public class VendingMachineTest {
 		vendingMachine.dispenseProduct(Product.CHIPS);
 		assertEquals(new BigDecimal(0).setScale(2), vendingMachine.getTotalMoneyReceived());
 	}
+	
+	@Test
+	public void whenAProductIsSelectedButNotEnoughMoneyHasBeenReceivedDisplayWillShowProductPrice() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY);
+		assertEquals("PRICE $0.65", vendingMachine.getDisplayMessage());
+	}
 }
