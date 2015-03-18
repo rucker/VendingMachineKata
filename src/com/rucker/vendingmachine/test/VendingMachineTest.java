@@ -97,7 +97,7 @@ public class VendingMachineTest {
 	}
 	
 	@Test
-	public void whenAProductisDispensedDisplayReadsThankYou() {
+	public void whenAProductIsDispensedDisplayReadsThankYou() {
 		vendingMachine.dispenseProduct(Product.CHIPS);
 		assertEquals(Display.THANK_YOU, vendingMachine.getDisplayMessage());
 	}
