@@ -124,4 +124,13 @@ public class VendingMachineTest {
 		vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY);
 		assertEquals("PRICE $0.65", vendingMachine.getDisplayMessage());
 	}
+	
+	@Test
+	public void whenAProductIsSelectedButNotEnoughMoneyHasBeenReceivedAndDisplayIsCheckedMoreThanOnceDisplayWillShowCurrentAmountReceived() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY);
+		vendingMachine.getDisplayMessage();
+		assertEquals("$0.50", vendingMachine.getDisplayMessage());
+	}
 }

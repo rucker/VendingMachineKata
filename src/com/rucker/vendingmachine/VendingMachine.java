@@ -23,7 +23,7 @@ public class VendingMachine {
 		productCodes.put(KeyCodes.KEY_THREE, Product.CANDY);
 	}
 	
-	private boolean thankYouDisplayed = false;
+	private boolean displayCheckedOnce = false;
 
 	public VendingMachine() {
 		setTotalMoneyReceivedToZero();
@@ -39,11 +39,14 @@ public class VendingMachine {
 	}
 	
 	public String getDisplayMessage() {
-		if (Display.THANK_YOU.equals(display.getMessage()) && !thankYouDisplayed) {
-			thankYouDisplayed = true;
-		}
-		else if (Display.THANK_YOU.equals(display.getMessage()) && thankYouDisplayed) {
+		if (Display.THANK_YOU.equals(display.getMessage()) && displayCheckedOnce) {
 			display.displayInsertCoin();
+		}
+		else if (display.getMessage().contains(Display.PRICE) && displayCheckedOnce) {
+			display.setDisplayTotal(totalMoneyReceived.toString());
+		}
+		if (!displayCheckedOnce) {
+			displayCheckedOnce = true;
 		}
 		return display.getMessage();
 	}
