@@ -158,4 +158,12 @@ public class VendingMachineTest {
 		vendingMachine.getDisplayMessage();
 		assertEquals(Display.INSERT_COIN, vendingMachine.getDisplayMessage());
 	}
+	
+	@Test
+	public void whenCustomerWantsCoinsReturnedPlaceReceivedCoinsInCoinReturn() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.returnCoins();
+		assertEquals(2, vendingMachine.getCoinsInCoinReturn().size());
+	}
 }

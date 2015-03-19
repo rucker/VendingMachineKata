@@ -16,6 +16,7 @@ public class VendingMachine {
 	
 	private Display display = new Display();
 	private BigDecimal totalMoneyReceived;
+	private LinkedList<Coin> receivedCoins = new LinkedList<Coin>();
 	private CoinSlot coinSlot = new CoinSlot();
 	private CoinReturn coinReturn = new CoinReturn();
 	private static HashMap<KeyCodes, Product> productCodes;
@@ -67,6 +68,7 @@ public class VendingMachine {
 		}
 		else {
 			totalMoneyReceived = totalMoneyReceived.add(receivedCoin.value);
+			receivedCoins.add(receivedCoin);
 			display.setDisplayTotal(totalMoneyReceived.toString());
 		}
 		return receivedCoin;
@@ -104,5 +106,12 @@ public class VendingMachine {
 	
 	public LinkedList<Coin> getCoinsInCoinReturn() {
 		return coinReturn.getReturnedCoins();
+	}
+
+	public void returnCoins() {
+		for (Coin coin : receivedCoins) {
+			coinReturn.returnCoin(coin);
+		}
+		receivedCoins.removeAll(receivedCoins);
 	}
 }
