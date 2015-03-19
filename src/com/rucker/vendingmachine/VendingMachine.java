@@ -3,7 +3,9 @@ package com.rucker.vendingmachine;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.LinkedList;
 
+import com.rucker.vendingmachine.components.CoinReturn;
 import com.rucker.vendingmachine.components.CoinSlot;
 import com.rucker.vendingmachine.components.Display;
 import com.rucker.vendingmachine.components.KeyCodes;
@@ -15,6 +17,7 @@ public class VendingMachine {
 	private Display display = new Display();
 	private BigDecimal totalMoneyReceived;
 	private CoinSlot coinSlot = new CoinSlot();
+	private CoinReturn coinReturn = new CoinReturn();
 	private static HashMap<KeyCodes, Product> productCodes;
 	private static HashMap<Product, Integer> inventory;
 	static {
@@ -59,8 +62,13 @@ public class VendingMachine {
 
 	public Coin receiveCoin(double weight, double diameter, double thickness) {
 		Coin receivedCoin = coinSlot.receiveCoin(weight, diameter, thickness);
-		totalMoneyReceived = totalMoneyReceived.add(receivedCoin.value);
-		display.setDisplayTotal(totalMoneyReceived.toString());
+		if (Coin.METAL_SLUG.equals(receivedCoin)) {
+			coinReturn.returnCoin(receivedCoin);
+		}
+		else {
+			totalMoneyReceived = totalMoneyReceived.add(receivedCoin.value);
+			display.setDisplayTotal(totalMoneyReceived.toString());
+		}
 		return receivedCoin;
 	}
 
@@ -92,5 +100,9 @@ public class VendingMachine {
 		inventory.put(product, inventory.get(product) - 1);
 		setTotalMoneyReceivedToZero();
 		display.displayThankYou();
+	}
+	
+	public LinkedList<Coin> getCoinsInCoinReturn() {
+		return coinReturn.getReturnedCoins();
 	}
 }

@@ -35,6 +35,10 @@ public class VendingMachineTest {
 		assertEquals(Coin.METAL_SLUG, vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.DIME.thickness));
 		assertEquals(Coin.METAL_SLUG, vendingMachine.receiveCoin(Coin.DIME.weight, Coin.NICKEL.diameter, Coin.DIME.thickness));
 		assertEquals(Coin.METAL_SLUG, vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.QUARTER.diameter, Coin.NICKEL.thickness));
+		assertEquals(3, vendingMachine.getCoinsInCoinReturn().size());
+		for (Coin coin : vendingMachine.getCoinsInCoinReturn()) {
+			assertEquals(Coin.METAL_SLUG, coin);
+		}
 	}
 
 	@Test
