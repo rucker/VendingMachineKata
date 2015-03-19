@@ -1,7 +1,6 @@
 package com.rucker.vendingmachine;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -15,7 +14,6 @@ import com.rucker.vendingmachine.product.Product;
 public class VendingMachine {
 	
 	private Display display = new Display();
-	private BigDecimal totalMoneyReceived;
 	private LinkedList<Coin> receivedCoins = new LinkedList<Coin>();
 	private CoinSlot coinSlot = new CoinSlot();
 	private CoinReturn coinReturn = new CoinReturn();
@@ -31,7 +29,6 @@ public class VendingMachine {
 	private boolean displayCheckedOnce = false;
 
 	public VendingMachine() {
-		setTotalMoneyReceivedToZero();
 		inventory = new HashMap<Product, Integer> ();
 		inventory.put(Product.CANDY, 5);
 		inventory.put(Product.CHIPS, 5);
@@ -39,17 +36,13 @@ public class VendingMachine {
 		inventory.put(Product.NONE, 0);
 	}
 	
-	private void setTotalMoneyReceivedToZero() {
-		totalMoneyReceived = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
-	}
-	
 	public String getDisplayMessage() {
 		if (Display.THANK_YOU.equals(display.getMessage()) && displayCheckedOnce) {
 			display.displayInsertCoin();
 		}
 		else if (display.getMessage().contains(Display.PRICE) && displayCheckedOnce) {
-			if (totalMoneyReceived.compareTo(new BigDecimal(0).setScale(2)) > 0) {
-				display.setDisplayTotal(totalMoneyReceived.toString());
+			if (getTotalMoneyReceived().compareTo(new BigDecimal(0).setScale(2)) > 0) {
+				display.setDisplayTotal(getTotalMoneyReceived().toString());
 			}
 			else {
 				display.displayInsertCoin();
@@ -67,14 +60,17 @@ public class VendingMachine {
 			coinReturn.returnCoin(receivedCoin);
 		}
 		else {
-			totalMoneyReceived = totalMoneyReceived.add(receivedCoin.value);
 			receivedCoins.add(receivedCoin);
-			display.setDisplayTotal(totalMoneyReceived.toString());
+			display.setDisplayTotal(getTotalMoneyReceived().toString());
 		}
 		return receivedCoin;
 	}
 
 	public BigDecimal getTotalMoneyReceived() {
+		BigDecimal totalMoneyReceived = new BigDecimal(0).setScale(2);
+		for (Coin coin : receivedCoins) {
+			totalMoneyReceived = totalMoneyReceived.add(coin.value);
+		}
 		return totalMoneyReceived;
 	}
 	
@@ -87,7 +83,7 @@ public class VendingMachine {
 	}
 	
 	public boolean hasEnoughMoneyBeenReceivedForProduct(Product product) {
-		boolean enoughMoneyReceived = totalMoneyReceived.compareTo(product.price) >= 0;
+		boolean enoughMoneyReceived = getTotalMoneyReceived().compareTo(product.price) >= 0;
 		if (!enoughMoneyReceived) {
 			display.displayPriceOfProduct(product);
 		}
@@ -100,10 +96,15 @@ public class VendingMachine {
 
 	public void dispenseProduct(Product product) {
 		inventory.put(product, inventory.get(product) - 1);
-		setTotalMoneyReceivedToZero();
+		dispenseChange();
 		display.displayThankYou();
 	}
 	
+	private void dispenseChange() {
+		// FIXME implement change calculation
+		receivedCoins.removeAll(receivedCoins);
+	}
+
 	public LinkedList<Coin> getCoinsInCoinReturn() {
 		return coinReturn.getReturnedCoins();
 	}
@@ -113,6 +114,5 @@ public class VendingMachine {
 			coinReturn.returnCoin(coin);
 		}
 		receivedCoins.removeAll(receivedCoins);
-		setTotalMoneyReceivedToZero();
 	}
 }
