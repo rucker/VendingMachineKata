@@ -173,4 +173,11 @@ public class VendingMachineTest {
 		vendingMachine.returnCoins();
 		assertEquals(new BigDecimal(0).setScale(2), vendingMachine.getTotalMoneyReceived());
 	}
+	
+	@Test
+	public void whenAllCoinsAreReturnedToCustomerDisplayReadsInsertCoin() {
+		insertTwoQuarters();
+		vendingMachine.returnCoins();
+		assertEquals(Display.INSERT_COIN, vendingMachine.getDisplayMessage());
+	}
 }

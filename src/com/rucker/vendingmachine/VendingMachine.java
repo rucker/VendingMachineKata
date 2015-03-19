@@ -114,5 +114,6 @@ public class VendingMachine {
 			coinReturn.returnCoin(coin);
 		}
 		receivedCoins.removeAll(receivedCoins);
+		display.displayInsertCoin();
 	}
 }
