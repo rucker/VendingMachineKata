@@ -22,6 +22,20 @@ public class VendingMachineTest {
 	public void setUp() {
 		vendingMachine = new VendingMachine();
 	}
+	
+	@Test
+	public void whenValidCoinsAreInsertedTheyAreAccepted() {
+		assertEquals(Coin.NICKEL, vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness));
+		assertEquals(Coin.DIME, vendingMachine.receiveCoin(Coin.DIME.weight, Coin.DIME.diameter, Coin.DIME.thickness));
+		assertEquals(Coin.QUARTER, vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness));
+	}
+	
+	@Test
+	public void whenInvalidCoinsAreInsertedTheyAreRejected() {
+		assertEquals(Coin.METAL_SLUG, vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.DIME.thickness));
+		assertEquals(Coin.METAL_SLUG, vendingMachine.receiveCoin(Coin.DIME.weight, Coin.NICKEL.diameter, Coin.DIME.thickness));
+		assertEquals(Coin.METAL_SLUG, vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.QUARTER.diameter, Coin.NICKEL.thickness));
+	}
 
 	@Test
 	public void whenNoCoinsHaveBeenInsertedDisplayReadsInsertCoin() {

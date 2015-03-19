@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.rucker.vendingmachine.components.CoinSlot;
 import com.rucker.vendingmachine.components.Display;
 import com.rucker.vendingmachine.components.KeyCodes;
+import com.rucker.vendingmachine.currency.Coin;
 import com.rucker.vendingmachine.product.Product;
 
 public class VendingMachine {
@@ -56,9 +57,11 @@ public class VendingMachine {
 		return display.getMessage();
 	}
 
-	public void receiveCoin(double weight, double diameter, double thickness) {
-		totalMoneyReceived = totalMoneyReceived.add(coinSlot.receiveCoin(weight, diameter, thickness).value);
+	public Coin receiveCoin(double weight, double diameter, double thickness) {
+		Coin receivedCoin = coinSlot.receiveCoin(weight, diameter, thickness);
+		totalMoneyReceived = totalMoneyReceived.add(receivedCoin.value);
 		display.setDisplayTotal(totalMoneyReceived.toString());
+		return receivedCoin;
 	}
 
 	public BigDecimal getTotalMoneyReceived() {
