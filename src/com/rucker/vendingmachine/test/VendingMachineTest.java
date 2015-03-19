@@ -166,4 +166,11 @@ public class VendingMachineTest {
 		vendingMachine.returnCoins();
 		assertEquals(2, vendingMachine.getCoinsInCoinReturn().size());
 	}
+	
+	@Test
+	public void whenAllCoinsAreReturnedToCustomerTotalMoneyReceivedIsZero() {
+		insertTwoQuarters();
+		vendingMachine.returnCoins();
+		assertEquals(new BigDecimal(0).setScale(2), vendingMachine.getTotalMoneyReceived());
+	}
 }
