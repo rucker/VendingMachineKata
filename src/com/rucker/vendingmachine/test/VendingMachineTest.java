@@ -23,6 +23,12 @@ public class VendingMachineTest {
 		vendingMachine = new VendingMachine();
 	}
 	
+	private void insertTwoQuarters() {
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+	}
+	
+	
 	@Test
 	public void whenValidCoinsAreInsertedTheyAreAccepted() {
 		assertEquals(Coin.NICKEL, vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness));
@@ -92,8 +98,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenAProductIsChosenTheVendingMachineVerifiesWhetherEnoughMoneyHasBeenReceived() {
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		insertTwoQuarters();
 		assertEquals(true, vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CHIPS));
 		assertEquals(false, vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY));
 	}
@@ -108,8 +113,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenAProductIsDispensedItIsRemovedFromTheInventoryCount() {
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		insertTwoQuarters();
 		vendingMachine.dispenseProduct(Product.CHIPS);
 		assertEquals(4, vendingMachine.getQuantityAvailable(Product.CHIPS));
 	}
@@ -129,24 +133,21 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenProductIsDispensedTotalMoneyReceivedIsSetToZero() {
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		insertTwoQuarters();
 		vendingMachine.dispenseProduct(Product.CHIPS);
 		assertEquals(new BigDecimal(0).setScale(2), vendingMachine.getTotalMoneyReceived());
 	}
 	
 	@Test
 	public void whenAProductIsSelectedButNotEnoughMoneyHasBeenReceivedDisplayWillShowProductPrice() {
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		insertTwoQuarters();
 		vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY);
 		assertEquals("PRICE $0.65", vendingMachine.getDisplayMessage());
 	}
 	
 	@Test
 	public void whenAProductIsSelectedButNotEnoughMoneyHasBeenReceivedAndDisplayIsCheckedMoreThanOnceDisplayWillShowCurrentAmountReceived() {
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		insertTwoQuarters();
 		vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY);
 		vendingMachine.getDisplayMessage();
 		assertEquals("$0.50", vendingMachine.getDisplayMessage());
@@ -161,8 +162,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenCustomerWantsCoinsReturnedPlaceReceivedCoinsInCoinReturn() {
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
-		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
+		insertTwoQuarters();
 		vendingMachine.returnCoins();
 		assertEquals(2, vendingMachine.getCoinsInCoinReturn().size());
 	}
