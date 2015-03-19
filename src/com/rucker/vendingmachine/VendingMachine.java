@@ -43,7 +43,12 @@ public class VendingMachine {
 			display.displayInsertCoin();
 		}
 		else if (display.getMessage().contains(Display.PRICE) && displayCheckedOnce) {
-			display.setDisplayTotal(totalMoneyReceived.toString());
+			if (totalMoneyReceived.compareTo(new BigDecimal(0).setScale(2)) > 0) {
+				display.setDisplayTotal(totalMoneyReceived.toString());
+			}
+			else {
+				display.displayInsertCoin();
+			}
 		}
 		if (!displayCheckedOnce) {
 			displayCheckedOnce = true;

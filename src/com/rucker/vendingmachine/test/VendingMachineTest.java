@@ -133,4 +133,11 @@ public class VendingMachineTest {
 		vendingMachine.getDisplayMessage();
 		assertEquals("$0.50", vendingMachine.getDisplayMessage());
 	}
+	
+	@Test
+	public void whenAProductIsSelectedButNoMoneyHasBeenReceivedAndDisplayIsCheckedMoreThanOnceDisplayWillReadInsertCoin() {
+		vendingMachine.hasEnoughMoneyBeenReceivedForProduct(Product.CANDY);
+		vendingMachine.getDisplayMessage();
+		assertEquals(Display.INSERT_COIN, vendingMachine.getDisplayMessage());
+	}
 }
