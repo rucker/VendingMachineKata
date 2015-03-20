@@ -168,6 +168,16 @@ public class VendingMachineTest {
 	}
 	
 	@Test
+	public void whenAllCoinsAreReturnedToCustomerTheyArePlacedInCoinReturn() {
+		insertTwoQuarters();
+		vendingMachine.returnCoins();
+		assertEquals(2, vendingMachine.getCoinsInCoinReturn().size());
+		for (Coin coin : vendingMachine.getCoinsInCoinReturn()) {
+			assertEquals(Coin.QUARTER, coin);
+		}
+	}
+	
+	@Test
 	public void whenAllCoinsAreReturnedToCustomerTotalMoneyReceivedIsZero() {
 		insertTwoQuarters();
 		vendingMachine.returnCoins();
