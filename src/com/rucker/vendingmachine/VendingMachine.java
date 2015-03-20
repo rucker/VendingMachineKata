@@ -104,19 +104,21 @@ public class VendingMachine {
 		BigDecimal changeOwed = getTotalMoneyReceived().subtract(product.price);
 		while (changeOwed.compareTo(BigDecimal.ZERO) > 0) {
 			if (changeOwed.compareTo(Coin.QUARTER.value) >= 0) {
-				coinReturn.returnCoin(Coin.QUARTER);
-				changeOwed = changeOwed.subtract(Coin.QUARTER.value);
+				changeOwed = returnCoinAndReduceChangeOwed(Coin.QUARTER, changeOwed);
 			}
 			else if (changeOwed.compareTo(Coin.DIME.value) >= 0) {
-				coinReturn.returnCoin(Coin.DIME);
-				changeOwed = changeOwed.subtract(Coin.DIME.value);
+				changeOwed = returnCoinAndReduceChangeOwed(Coin.DIME, changeOwed);
 			}
 			else if (changeOwed.compareTo(Coin.NICKEL.value) >= 0) {
-				coinReturn.returnCoin(Coin.NICKEL);
-				changeOwed = changeOwed.subtract(Coin.NICKEL.value);
+				changeOwed = returnCoinAndReduceChangeOwed(Coin.NICKEL, changeOwed);
 			}
 		}
 		receivedCoins.removeAll(receivedCoins);
+	}
+	
+	private BigDecimal returnCoinAndReduceChangeOwed(Coin coin, BigDecimal changeOwed) {
+		coinReturn.returnCoin(coin);
+		return changeOwed.subtract(coin.value);
 	}
 
 	public LinkedList<Coin> getCoinsInCoinReturn() {

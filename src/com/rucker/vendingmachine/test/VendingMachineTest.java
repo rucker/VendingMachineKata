@@ -196,11 +196,7 @@ public class VendingMachineTest {
 		insertTwoQuarters();
 		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
 		vendingMachine.dispenseProduct(Product.CANDY);
-		BigDecimal changeReceived = BigDecimal.ZERO;
-		for (Coin coin : vendingMachine.getCoinsInCoinReturn()) {
-			changeReceived = changeReceived.add(coin.value);
-		}
-		assertEquals(0, new BigDecimal(.1).setScale(2, RoundingMode.HALF_UP).compareTo(changeReceived));
+		assertEquals(0, new BigDecimal(.1).setScale(2, RoundingMode.HALF_UP).compareTo(calculateChangeReceived()));
 	}
 	
 	@Test
@@ -209,11 +205,7 @@ public class VendingMachineTest {
 		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
 		vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness);
 		vendingMachine.dispenseProduct(Product.CHIPS);
-		BigDecimal changeReceived = BigDecimal.ZERO;
-		for (Coin coin : vendingMachine.getCoinsInCoinReturn()) {
-			changeReceived = changeReceived.add(coin.value);
-		}
-		assertEquals(0, new BigDecimal(.3).setScale(2, RoundingMode.HALF_UP).compareTo(changeReceived));
+		assertEquals(0, new BigDecimal(.3).setScale(2, RoundingMode.HALF_UP).compareTo(calculateChangeReceived()));
 	}
 	
 	@Test
@@ -222,11 +214,7 @@ public class VendingMachineTest {
 		vendingMachine.receiveCoin(Coin.DIME.weight, Coin.DIME.diameter, Coin.DIME.thickness);
 		vendingMachine.receiveCoin(Coin.NICKEL.weight, Coin.NICKEL.diameter, Coin.NICKEL.thickness);
 		vendingMachine.dispenseProduct(Product.CHIPS);
-		BigDecimal changeReceived = BigDecimal.ZERO;
-		for (Coin coin : vendingMachine.getCoinsInCoinReturn()) {
-			changeReceived = changeReceived.add(coin.value);
-		}
-		assertEquals(0, new BigDecimal(.15).setScale(2, RoundingMode.HALF_UP).compareTo(changeReceived));
+		assertEquals(0, new BigDecimal(.15).setScale(2, RoundingMode.HALF_UP).compareTo(calculateChangeReceived()));
 	}
 	
 	@Test
@@ -235,10 +223,14 @@ public class VendingMachineTest {
 		insertTwoQuarters();
 		vendingMachine.receiveCoin(Coin.QUARTER.weight, Coin.QUARTER.diameter, Coin.QUARTER.thickness);
 		vendingMachine.dispenseProduct(Product.COLA);
+		assertEquals(0, new BigDecimal(.25).setScale(2, RoundingMode.HALF_UP).compareTo(calculateChangeReceived()));
+	}
+	
+	private BigDecimal calculateChangeReceived() {
 		BigDecimal changeReceived = BigDecimal.ZERO;
 		for (Coin coin : vendingMachine.getCoinsInCoinReturn()) {
 			changeReceived = changeReceived.add(coin.value);
 		}
-		assertEquals(0, new BigDecimal(.25).setScale(2, RoundingMode.HALF_UP).compareTo(changeReceived));
+		return changeReceived;
 	}
 }
