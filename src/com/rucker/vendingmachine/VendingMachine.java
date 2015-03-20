@@ -96,12 +96,26 @@ public class VendingMachine {
 
 	public void dispenseProduct(Product product) {
 		inventory.put(product, inventory.get(product) - 1);
-		dispenseChange();
+		dispenseChange(product);
 		display.displayThankYou();
 	}
 	
-	private void dispenseChange() {
-		// FIXME implement change calculation
+	private void dispenseChange(Product product) {
+		BigDecimal changeOwed = getTotalMoneyReceived().subtract(product.price);
+		while (changeOwed.compareTo(BigDecimal.ZERO) > 0) {
+			if (changeOwed.compareTo(Coin.QUARTER.value) >= 0) {
+				coinReturn.returnCoin(Coin.QUARTER);
+				changeOwed = changeOwed.subtract(Coin.QUARTER.value);
+			}
+			else if (changeOwed.compareTo(Coin.DIME.value) >= 0) {
+				coinReturn.returnCoin(Coin.DIME);
+				changeOwed = changeOwed.subtract(Coin.DIME.value);
+			}
+			else if (changeOwed.compareTo(Coin.NICKEL.value) >= 0) {
+				coinReturn.returnCoin(Coin.NICKEL);
+				changeOwed = changeOwed.subtract(Coin.NICKEL.value);
+			}
+		}
 		receivedCoins.removeAll(receivedCoins);
 	}
 
